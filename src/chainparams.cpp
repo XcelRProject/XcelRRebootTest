@@ -1,5 +1,5 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2009-2017 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,6 +11,7 @@
 #include <utilstrencodings.h>
 
 #include <assert.h>
+#include <memory>
 
 #include <chainparamsseeds.h>
 
@@ -48,7 +49,7 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
  */
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
-    const char* pszTimestamp = "XcelR Reboot 2019abcdefghijklmnopqrstuvwxyz";
+    const char* pszTimestamp = "xcelr2019rebootabcdefghijk";
     const CScript genesisOutputScript = CScript() << ParseHex("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9") << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
@@ -105,54 +106,50 @@ public:
         consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000000000");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0xa601455787cb65ffc325dda4751a99cf01d1567799ec4b04f45bb05f9ef0cbde"); //1503191
+        consensus.defaultAssumeValid = uint256S("0x66f49ad85624c33e4fd61aa45c54012509ed4a53308908dd07f56346c7939273"); //1441280
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 32-bit integer with any alignment.
          */
-        pchMessageStart[0] = 0xc2;
-        pchMessageStart[1] = 0xd6;
-        pchMessageStart[2] = 0xe4;
-        pchMessageStart[3] = 0xfb;
-        nDefaultPort = 6584;
+        pchMessageStart[0] = 0xc3;
+        pchMessageStart[1] = 0xb5;
+        pchMessageStart[2] = 0xd2;
+        pchMessageStart[3] = 0xdc;
+        nDefaultPort = 5484;
         nPruneAfterHeight = 100000;
 
-        genesis = CreateGenesisBlock(1561620436, 2085272609, 0x1e0ffff0, 1, 25 * COIN);
+        genesis = CreateGenesisBlock(1561629449, 2084903185, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("28dd8eab4824f21c8a63c529bbfaab84e2698dec72f046d08d13970ab2c19f53"));
-        assert(genesis.hashMerkleRoot == uint256S("b0cf77429ffca564880040606297e06cf50bd0ded716af5a427a20d4d97a640c"));
+        assert(consensus.hashGenesisBlock == uint256S("8531a908f5e952308da67548812c4c4994635e8a8890cf945fe20574201b92f9"));
+        assert(genesis.hashMerkleRoot == uint256S("8d887505e0c2f74a4e30eed1f71010fb76263d1ba5446c46e2364f077488bbd8"));
 
-        // Note that of those which support the service bits prefix, most only support a subset of
-        // possible options.
-        // This is fine at runtime as we'll fall back to using them as a oneshot if they don't support the
-        // service bits we want, but we should get them updated to support all service bits wanted by any
-        // release ASAP to avoid it where possible.
-        // vSeeds.emplace_back("seed-a.xcelr.loshan.co.uk");
+        // Note that of those with the service bits flag, most only support a subset of possible options
+        //vSeeds.emplace_back("seed-a.xcelr.loshan.co.uk");
         //vSeeds.emplace_back("dnsseed.thrasher.io");
         //vSeeds.emplace_back("dnsseed.xcelrtools.com");
         //vSeeds.emplace_back("dnsseed.xcelrpool.org");
         //vSeeds.emplace_back("dnsseed.koin-project.com");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,77);
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,73);
-        base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,74);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,76);
+        base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,50);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,77);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0xee, 0x66, 0xF4, 0x4D};
-        base58Prefixes[EXT_SECRET_KEY] = {0xee, 0x66, 0xCA, 0xF6};
+        base58Prefixes[EXT_PUBLIC_KEY] = {0xcc, 0x55, 0xB2, 0x1E};
+        base58Prefixes[EXT_SECRET_KEY] = {0xcc, 0x55, 0xAD, 0xE4};
 
         bech32_hrp = "xcl";
 
-        vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
+       // vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
 
         fDefaultConsistencyChecks = false;
         fRequireStandard = true;
         fMineBlocksOnDemand = false;
 
-        checkpointData = (CCheckpointData) {
+       checkpointData = (CCheckpointData) {
             {
-                {  0, uint256S("28dd8eab4824f21c8a63c529bbfaab84e2698dec72f046d08d13970ab2c19f53")},
+                {  0, uint256S("8531a908f5e952308da67548812c4c4994635e8a8890cf945fe20574201b92f9")},
 /*
                 {  1500, uint256S("0x841a2965955dd288cfa707a755d05a54e45f8bd476835ec9af4402a2b59a2967")},
                 {  4032, uint256S("0x9ce90e427198fc0ef05e5905ce3503725b80e26afd35a987965fd7e3d9cf0846")},
@@ -167,10 +164,10 @@ public:
 
         chainTxData = ChainTxData{
             // Data as of block 59c9b9d3fec105bdc716d84caa7579503d5b05b73618d0bf2d5fa639f780a011 (height 1353397).
-            1561620436, // * UNIX timestamp of last known number of transactions
+            1561629449, // * UNIX timestamp of last known number of transactions
             0,  // * total number of transactions between genesis and that timestamp
                     //   (the tx=... number in the SetBestChain debug.log lines)
-            0.0 // * estimated number of transactions per second after that timestamp
+            0.0     // * estimated number of transactions per second after that timestamp
         };
     }
 };
@@ -183,13 +180,13 @@ public:
     CTestNetParams() {
         strNetworkID = "test";
         consensus.nSubsidyHalvingInterval = 840000;
-        consensus.BIP16Height = 0; // always enforce P2SH BIP16 on testnet
+        consensus.BIP16Height = 0; // always enforce P2SH BIP16 on regtest
         consensus.BIP34Height = 76;
         consensus.BIP34Hash = uint256S("8075c771ed8b495ffd943980a95f702ab34fce3c8c54e379548bda33cc8c0573");
         consensus.BIP65Height = 76; // 8075c771ed8b495ffd943980a95f702ab34fce3c8c54e379548bda33cc8c0573
         consensus.BIP66Height = 76; // 8075c771ed8b495ffd943980a95f702ab34fce3c8c54e379548bda33cc8c0573
         consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 3.5 * 12 * 60 * 60; // 3.5 days
+        consensus.nPowTargetTimespan = 3.5 * 24 * 60 * 60; // 3.5 days
         consensus.nPowTargetSpacing = 2.5 * 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
@@ -210,10 +207,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1517356801; // January 31st, 2018
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000000000");
+        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000001df7b5aa1700ce");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x438b7e1c86f58b4e62e8cf2d0f9f256e3dddaebc5d1cc568e633a38e0db6c025"); //787085
+        consensus.defaultAssumeValid = uint256S("0x1efb29c8187d5a496a33377941d1df415169c3ce5d8c05d055f25b683ec3f9a3"); //612653
 
         pchMessageStart[0] = 0xfd;
         pchMessageStart[1] = 0xd2;
@@ -224,15 +221,15 @@ public:
 
         genesis = CreateGenesisBlock(1486949366, 293345, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("a4db32f16a3b711a9a9ebad2d08ca636d75995e0b53ac1ecb306cb8812681de9"));
-        assert(genesis.hashMerkleRoot == uint256S("0106575ec01377c626b3ea8615df9a15c609cc117535ad8d0eb2b45f3fb239ab"));
+        assert(consensus.hashGenesisBlock == uint256S("0x4966625a4b2851d9fdee139e56211a0d88575f59ed816ff5e6a63deb4e3e29a0"));
+        assert(genesis.hashMerkleRoot == uint256S("0x97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        //vSeeds.emplace_back("testnet-seed.xcelrtools.com");
-        //vSeeds.emplace_back("seed-b.xcelr.loshan.co.uk");
-        //vSeeds.emplace_back("dnsseed-testnet.thrasher.io");
+        vSeeds.emplace_back("testnet-seed.xcelrtools.com");
+        vSeeds.emplace_back("seed-b.xcelr.loshan.co.uk");
+        vSeeds.emplace_back("dnsseed-testnet.thrasher.io");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
@@ -256,14 +253,12 @@ public:
         };
 
         chainTxData = ChainTxData{
-            // Data from rpc: getchaintxstats 4096 438b7e1c86f58b4e62e8cf2d0f9f256e3dddaebc5d1cc568e633a38e0db6c025
-            /* nTime    */ 1538637952,
-            /* nTxCount */ 1845705,
-            /* dTxRate  */ 1.907
+            // Data as of block a0afbded94d4be233e191525dc2d467af5c7eab3143c852c3cd549831022aad6 (height 343833)
+            1516406749,
+            794057,
+            0.01
         };
 
-        /* enable fallback fee on testnet */
-        m_fallback_fee_enabled = true;
     }
 };
 
@@ -342,9 +337,6 @@ public:
         base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
 
         bech32_hrp = "rxcl";
-
-        /* enable fallback fee on regtest */
-        m_fallback_fee_enabled = true;
     }
 };
 
