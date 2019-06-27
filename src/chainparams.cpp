@@ -48,7 +48,7 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
  */
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
-    const char* pszTimestamp = "XcelR Reboot 2019, Bitcoin stages parabolic jump to near $14,000, surging 320% since December as euphoria sets in";
+    const char* pszTimestamp = "XcelR Reboot 2019abcdefghijklmnopqrstuvwxyz";
     const CScript genesisOutputScript = CScript() << ParseHex("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9") << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
@@ -102,7 +102,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1517356801; // January 31st, 2018
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000001488d32719b8eb30150");
+        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000000000");
 
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0xa601455787cb65ffc325dda4751a99cf01d1567799ec4b04f45bb05f9ef0cbde"); //1503191
@@ -119,10 +119,10 @@ public:
         nDefaultPort = 6584;
         nPruneAfterHeight = 100000;
 
-        genesis = CreateGenesisBlock(1561612023, 2084824762, 0x1e0ffff0, 1, 25 * COIN);
+        genesis = CreateGenesisBlock(1561620436, 2085272609, 0x1e0ffff0, 1, 25 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("20a5aaa7baf92586fa3d52bd3cce2ed88a7c028db8bf5676cb7c2383571ac824"));
-        assert(genesis.hashMerkleRoot == uint256S("5bdb3d30cc4fe2467fd0f28f3e65876add0c3f975cafa4ec8cee5724c977cbf6"));
+        assert(consensus.hashGenesisBlock == uint256S("28dd8eab4824f21c8a63c529bbfaab84e2698dec72f046d08d13970ab2c19f53"));
+        assert(genesis.hashMerkleRoot == uint256S("b0cf77429ffca564880040606297e06cf50bd0ded716af5a427a20d4d97a640c"));
 
         // Note that of those which support the service bits prefix, most only support a subset of
         // possible options.
@@ -152,7 +152,7 @@ public:
 
         checkpointData = (CCheckpointData) {
             {
-                {  0, uint256S("20a5aaa7baf92586fa3d52bd3cce2ed88a7c028db8bf5676cb7c2383571ac824")},
+                {  0, uint256S("28dd8eab4824f21c8a63c529bbfaab84e2698dec72f046d08d13970ab2c19f53")},
 /*
                 {  1500, uint256S("0x841a2965955dd288cfa707a755d05a54e45f8bd476835ec9af4402a2b59a2967")},
                 {  4032, uint256S("0x9ce90e427198fc0ef05e5905ce3503725b80e26afd35a987965fd7e3d9cf0846")},
@@ -165,9 +165,9 @@ public:
             }
         };
 
-        cchainTxData = ChainTxData{
+        chainTxData = ChainTxData{
             // Data as of block 59c9b9d3fec105bdc716d84caa7579503d5b05b73618d0bf2d5fa639f780a011 (height 1353397).
-            1561612023, // * UNIX timestamp of last known number of transactions
+            1561620436, // * UNIX timestamp of last known number of transactions
             0,  // * total number of transactions between genesis and that timestamp
                     //   (the tx=... number in the SetBestChain debug.log lines)
             0.0 // * estimated number of transactions per second after that timestamp
@@ -224,15 +224,15 @@ public:
 
         genesis = CreateGenesisBlock(1486949366, 293345, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x4966625a4b2851d9fdee139e56211a0d88575f59ed816ff5e6a63deb4e3e29a0"));
-        assert(genesis.hashMerkleRoot == uint256S("0x97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9"));
+        assert(consensus.hashGenesisBlock == uint256S("a4db32f16a3b711a9a9ebad2d08ca636d75995e0b53ac1ecb306cb8812681de9"));
+        assert(genesis.hashMerkleRoot == uint256S("0106575ec01377c626b3ea8615df9a15c609cc117535ad8d0eb2b45f3fb239ab"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("testnet-seed.xcelrtools.com");
-        vSeeds.emplace_back("seed-b.xcelr.loshan.co.uk");
-        vSeeds.emplace_back("dnsseed-testnet.thrasher.io");
+        //vSeeds.emplace_back("testnet-seed.xcelrtools.com");
+        //vSeeds.emplace_back("seed-b.xcelr.loshan.co.uk");
+        //vSeeds.emplace_back("dnsseed-testnet.thrasher.io");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
